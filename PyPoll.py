@@ -14,9 +14,16 @@ import os
 import csv
 #assign a variable for the file to load and the path, create the file object
 file_to_load = os.path.join('Resources/election_results.csv')
+#initialized total vote counter
 total_votes = 0
+#empty list
 candidate_options = []
-
+#empty dictionary
+candidate_votes = {}
+#winning candidate and winning count tracker
+winning_candidate = ""
+winning_count = 0
+winning_percentage = 0
 
 #open the election results and read file, 'as' function is using the file object in this case "election_data"
 with open(file_to_load) as election_data:
@@ -33,8 +40,8 @@ with open(file_to_load) as election_data:
     #print each row in csv file
     for row in file_reader:
         # print(row)
-        # add accumulator to ad to the total vote count
-        total_votes = total_votes + 1
+        # add accumulator to add to the total vote count
+        total_votes = total_votes + 1 # can also be total_votes += 1
         #get candidate name from each row in column 3
         candidate_name = row[2]
     # print total votes
@@ -43,7 +50,37 @@ with open(file_to_load) as election_data:
         if candidate_name not in candidate_options:
             # add to list of candidates
             candidate_options.append(candidate_name)
-print(candidate_options)
+            #begin tracking each candidate's votes and setting each candidate's vote count to 0
+            candidate_votes[candidate_name] = 0
+        #incrementing candidate votes by placing it inside for loop
+        candidate_votes[candidate_name] += 1
+# print(candidate_votes)
+
+#for loop to go through candidate list
+for candidate in candidate_votes:
+    #getting vote counts for each candidate
+    votes = candidate_votes[candidate]
+    #calculate percentage of candidate votes for each candidate
+    vote_percentage = int(votes) / int(total_votes) * 100
+
+    print(f"{candidate}: {vote_percentage:.1f}% ({votes:,}.)\n")
+
+    #determine winning vote count and winning candidate
+    # determine if the votes are greater than the winning count
+    if (votes > winning_count) and (vote_percentage > winning_percentage):
+        #if true set winning_count = votes and winning_percent = vote_percentage
+        winning_count = votes
+        winning_percentage = vote_percentage
+        #set winning_candidate equal to candidate's name
+        winning_candidate = candidate
+
+winning_candidate_summary = (
+    f"---------------------------\n"
+    f"Winner: {winning_candidate}\n"
+    f"Winning Vote Count: {winning_count:,}\n"
+    f"Winning Percentage: {winning_percentage:.1f}%\n"
+    f"---------------------------\n")
+print(winning_candidate_summary)
 
 #code for writing to a file
 #Created filename variable to direct or indirect path to file.
