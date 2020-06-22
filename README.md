@@ -24,4 +24,4 @@ Complete an election review for specific Colorado counties.
   Diana DeGette           received 272,892 total votes resulting in 73.8%.
   Charles Casper Stockham received 85,213 total votes resulting in 23%.
 - Election Winner is:
-  Diana DeGetee with 272,892 total votes and 73.8% total percentage of votes.
+  Diana DeGette with 272,892 total votes and 73.8% total percentage of votes.
